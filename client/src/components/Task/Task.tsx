@@ -60,6 +60,7 @@ export const Task = ({id, title, description, createAt, priority, boardName}) =>
                         </PopoverContent>
                     </Popover>
                     <TaskModal
+                        id={id}
                         boardName={boardName} 
                         historyById={historyById}
                         title={title}

@@ -89,7 +89,7 @@ export const boardsApi = createApi({
         method: 'PATCH',
         body: body.new_task,
       }),
-      invalidatesTags: ['Boards','Tasks', 'History', 'HistoryById'],
+      invalidatesTags: ['Boards', 'Tasks', 'History', 'HistoryById'],
     }),
   }),
 });
@@ -104,5 +104,5 @@ export const {
   useDeleteTasksMutation,
   useEditTasksMutation,
   useGetHistoryQuery,
-  useGetAllHistoryByIdQuery
+  useGetAllHistoryByIdQuery,
 } = boardsApi;

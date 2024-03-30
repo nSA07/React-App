@@ -27,8 +27,8 @@ export const Header = () => {
   
   return (
     <header className="flex justify-between items-center p-4">
-      <h1 className="font-extrabold text-2xl">My Task Board</h1>
-      <div className="flex gap-4">
+      <h1 className="font-extrabold text-xl md:text-2xl">My Task Board</h1>
+      <div className="flex gap-1 md:gap-4">
         {error ? (
           <>Oh no, there was an error</>
         ) : isLoading ? (

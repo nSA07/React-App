@@ -5,14 +5,13 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet"
+import { ScrollArea } from "@/components/ui/scroll-area"
 
 import { RotateCcw  } from 'lucide-react'
 import { IHistory } from "@/types/types";
 import { typeFunction } from "@/types/enums";
 
 export const HeaderSideBar = ({history}) => {     
-console.log(history);
-
     const data = [];
     function historyItem (item: IHistory) {
         item?.map(({ changes }) => {
@@ -33,9 +32,11 @@ console.log(history);
             </SheetTrigger>
             <SheetContent>
                 <SheetTitle>History</SheetTitle>
-                <ul className="p-2 flex flex-col gap-3">
-                    {data?.map((item) => (item.title))}
-                </ul>
+                <ScrollArea className="w-full h-lvh rounded-md border p-4">
+                    <ul className="p-2 flex flex-col gap-3">
+                        {data?.map((item) => (item.title))}
+                    </ul>
+                </ScrollArea>
             </SheetContent>
         </Sheet>
     )
