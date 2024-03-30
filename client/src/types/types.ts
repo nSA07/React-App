@@ -5,7 +5,7 @@ export interface IDialogProps {
     dialogBtm: string;
     dialogTitle: string;
     dialogDescr: string;
-    varantBtm: "link" | "default" | "destructive" | "outline" | "secondary" | "ghost";
+    variantBtm: "link" | "default" | "destructive" | "outline" | "secondary" | "ghost";
     size: "default" | "boardBtm" | "sm" | "lg" | "icon";
     placeholder: string;
     handleDialog: (values: {title: string;}, form: { reset: () => void; }, setOpen: (arg0: boolean) => void) => void
@@ -14,6 +14,7 @@ export interface IDialogProps {
 export interface IBoardList {
     id: number;
     title: string;
+    boardName: string;
     tasks: ITask[];
 }
 
@@ -24,4 +25,15 @@ export interface ITask {
     createAt: string;
     priority: string;
     status: string;
+}
+
+export interface IHistoryValue {
+    [key: string]: string;
+}
+  
+export interface IHistory {
+    map(arg0: ({ changes }: { changes: IHistoryValue[]; }) => void): unknown;
+    id: number;
+    timestamp: Date;
+    stringValues: IHistoryValue[];
 }

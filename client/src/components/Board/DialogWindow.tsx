@@ -29,7 +29,7 @@ export const DialogWindow: FC<IDialogProps> = ({
         dialogBtm,
         dialogTitle,
         dialogDescr,
-        varantBtm,
+        variantBtm,
         size,
         placeholder,
         handleDialog
@@ -56,7 +56,7 @@ export const DialogWindow: FC<IDialogProps> = ({
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <Button variant={varantBtm} size={size} className="flex gap-2 font-medium">
+                <Button variant={variantBtm} size={size} className="flex gap-2 font-medium">
                     {icon}
                     {dialogBtm}
                 </Button>

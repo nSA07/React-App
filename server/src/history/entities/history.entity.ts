@@ -11,22 +11,10 @@ export class History {
   id: number;
 
   @Column()
-  entityType: string;
+  taskId: string;
 
-  @Column()
-  entityId: number;
-
-  @Column()
-  boardName: string;
-
-  @Column()
-  operationType: string;
-
-  @Column()
-  previousValues: string;
-
-  @Column()
-  newValues: string;
+  @Column('simple-json')
+  changes: { [key: string]: string }[];
 
   @CreateDateColumn()
   timestamp: Date;

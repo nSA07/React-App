@@ -17,50 +17,60 @@ import { Button } from "../ui/button"
 import { Badge } from "../ui/badge"
 import { TaskDialog } from "./TasksDialog"
 import { TaskSelect } from "./TaskSelect"
+import { TaskModal } from "./TaskModal"
 
-import { CalendarIcon, EllipsisVertical, Trash2 } from "lucide-react"
+import { CalendarIcon, EllipsisVertical, Trash2  } from "lucide-react"
 
 import { formattedData } from "@/helpers/formattedData"
-import { useDeleteTasksMutation } from "@/redux"
+import { useDeleteTasksMutation, useGetAllHistoryByIdQuery } from "@/redux"
 
-export const Task = ({id, title, description, createAt, priority}) => {
+export const Task = ({id, title, description, createAt, priority, boardName}) => {
 
     const [ deleteTasks ] = useDeleteTasksMutation()
     const [ open, setOpen ] = useState(false)
-    const { createDate } = formattedData(createAt)    
+    const { createDate } = formattedData(createAt)
+    const { data: historyById } = useGetAllHistoryByIdQuery(`history/${id}`)
     
     const deleteProduct = async (id: number) => {
         await deleteTasks(id)
     }
-
+    
     return (
-        <Card className="w-72">
+        <Card className="w-72 pointer">
             <CardHeader>
                 <div className="absolute contents">
-                <Popover open={open} onOpenChange={setOpen}>
-                    <PopoverTrigger className="relative top-[25px] left-[95%]">
-                        <EllipsisVertical />
-                    </PopoverTrigger>
-                    <PopoverContent>
-                        <TaskDialog
-                            id={id}
-                            variant={"ghost"}
-                            size="boardBtm"
-                            setOpen={setOpen}
-                            title={title}
-                            description={description}
-                            priority={priority}
-                        />
-                        <Button onClick={() => deleteProduct(id)} variant="ghost" size="boardBtm" className="text-[#f70202]">
-                            <Trash2 color="#f70202" />
-                            Delete
-                        </Button>
-                    </PopoverContent>
-                </Popover>
-                <CardTitle className="text-base text-wrap">
-                    {title}
-                </CardTitle>
-                <CardDescription className="text-wrap">{description}</CardDescription>
+                    <Popover open={open} onOpenChange={setOpen}>
+                        <PopoverTrigger className="relative top-[25px] left-[95%]">
+                            <EllipsisVertical />
+                        </PopoverTrigger>
+                        <PopoverContent>
+                            <TaskDialog
+                                id={id}
+                                variant={"ghost"}
+                                size="boardBtm"
+                                setOpen={setOpen}
+                                title={title}
+                                description={description}
+                                priority={priority}
+                            />
+                            <Button onClick={() => deleteProduct(id)} variant="ghost" size="boardBtm" className="text-[#f70202]">
+                                <Trash2 color="#f70202" />
+                                Delete
+                            </Button>
+                        </PopoverContent>
+                    </Popover>
+                    <TaskModal
+                        boardName={boardName} 
+                        historyById={historyById}
+                        title={title}
+                        description={description}
+                        priority={priority}
+                        createDate={createDate}
+                    />
+                    <CardTitle className="text-base text-wrap">
+                        {title}
+                    </CardTitle>
+                    <CardDescription className="text-wrap">{description}</CardDescription>
                 </div>
             </CardHeader>
             <CardContent>

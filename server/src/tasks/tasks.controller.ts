@@ -27,19 +27,8 @@ export class TasksController {
 
   @Post()
   @UsePipes(new ValidationPipe())
-  async create(@Body() createTaskDto: CreateTaskDto) {
-    const newTask = await this.tasksService.create(createTaskDto);
-    const board = await this.boardService.findBoard(newTask.board.id);
-    const historyItem = {
-      entityType: newTask.title,
-      entityId: newTask.id,
-      boardName: board.title,
-      operationType: 'CREATE',
-      previousValues: '',
-      newValues: '',
-    };
-    await this.historyService.create(historyItem);
-    return newTask;
+  create(@Body() createTaskDto: CreateTaskDto) {
+    return this.tasksService.create(createTaskDto);
   }
 
   @Get()
@@ -57,12 +46,12 @@ export class TasksController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateTaskDto: UpdateTaskDto) {
-    return this.tasksService.update(+id, updateTaskDto);
+  async update(@Param('id') id: string, @Body() updateTaskDto: UpdateTaskDto) {
+    return await this.tasksService.update(+id, updateTaskDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.tasksService.remove(+id);
+  async remove(@Param('id') id: string) {
+    return await this.tasksService.remove(+id);
   }
 }

@@ -17,7 +17,7 @@ import { EllipsisVertical, FilePenLine, Plus, Trash2 } from 'lucide-react';
 
 import { useDeleteBoardMutation, useEditBoardMutation, useAddTasksMutation, useGetTasksQuery } from "@/redux"
 
-export const Board:FC<IBoardList> = ({id, title, tasks}) => {
+export const Board:FC<IBoardList> = ({id, title, tasks, boardName}) => {
     const { toast } = useToast()
 
     const [ editBoard ] = useEditBoardMutation()
@@ -26,8 +26,7 @@ export const Board:FC<IBoardList> = ({id, title, tasks}) => {
 
     const { data: tasksData } = useGetTasksQuery(`tasks?board=${id}`)
 
-
-    const ranameBoard = async (
+    const renameBoard = async (
             values: {title: string},
             form: { reset: () => void; },
             setOpen: (arg0: boolean) => void
@@ -48,7 +47,7 @@ export const Board:FC<IBoardList> = ({id, title, tasks}) => {
         }   
     }
 
-    const addNewTaks = async (id: number) => {
+    const addNewTasks = async (id: number) => {
         const newTask = {
             title: "Edit title",
             description: "Edit descriptions",
@@ -79,12 +78,12 @@ export const Board:FC<IBoardList> = ({id, title, tasks}) => {
                                 dialogBtm={'Edit'}
                                 dialogTitle={'Edit board'}
                                 dialogDescr={'Edit board to your board list here. Click save when youre done.'}
-                                varantBtm={'ghost'}
+                                variantBtm={'ghost'}
                                 size={"boardBtm"}
                                 placeholder={'Edit board name'}
-                                handleDialog={ranameBoard}
+                                handleDialog={renameBoard}
                             />
-                            <Button onClick={() => addNewTaks(id)} variant="ghost" size="boardBtm" className="w-full">
+                            <Button onClick={() => addNewTasks(id)} variant="ghost" size="boardBtm" className="w-full">
                                 <Plus />
                                 Add new card
                             </Button>
@@ -96,7 +95,7 @@ export const Board:FC<IBoardList> = ({id, title, tasks}) => {
                     </Popover>
                 </div>
             </div>
-            <Button onClick={() => addNewTaks(id)} variant="outline" className="w-full">
+            <Button onClick={() => addNewTasks(id)} variant="outline" className="w-full">
                 <Plus />
                 Add new card
             </Button>
@@ -110,6 +109,7 @@ export const Board:FC<IBoardList> = ({id, title, tasks}) => {
                             description={item.description}
                             createAt={item.createAt}
                             priority={item.priority} 
+                            boardName={boardName}
                         />
                     ))}
                 </div>

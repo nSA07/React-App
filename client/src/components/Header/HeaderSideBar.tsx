@@ -2,22 +2,27 @@ import { Button } from "@/components/ui/button"
 import {
   Sheet,
   SheetContent,
-  SheetDescription,
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet"
 
 import { RotateCcw  } from 'lucide-react'
+import { IHistory } from "@/types/types";
+import { typeFunction } from "@/types/enums";
 
-import { useGetHistoryQuery } from "@/redux"
+export const HeaderSideBar = ({history}) => {     
+console.log(history);
 
-export const HeaderSideBar = () => {
-
-    const { data } = useGetHistoryQuery("history")
-
-    console.log(data);
+    const data = [];
+    function historyItem (item: IHistory) {
+        item?.map(({ changes }) => {
+            changes?.map(({field, prev, next, taskName, boardName, dueData, taskId}) => {                
+                data.push({title: typeFunction[field](prev, next, taskName, boardName, dueData, taskId)});
+            })
+        });
+    }
+    historyItem(history);
     
-
     return (
         <Sheet>
             <SheetTrigger asChild>
@@ -28,13 +33,9 @@ export const HeaderSideBar = () => {
             </SheetTrigger>
             <SheetContent>
                 <SheetTitle>History</SheetTitle>
-                <SheetDescription>
-                {data?.map((item) => (
-                    <ul key={item.id}>
-                        <li>You added {item.entityType} to the {item.boardName}</li>
-                    </ul>
-                ))}
-                </SheetDescription>
+                <ul className="p-2 flex flex-col gap-3">
+                    {data?.map((item) => (item.title))}
+                </ul>
             </SheetContent>
         </Sheet>
     )

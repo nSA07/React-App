@@ -2,20 +2,21 @@ import { IsString } from 'class-validator';
 
 export class CreateHistoryDto {
   @IsString()
-  entityType: string;
+  taskId: string;
+
+  changes: { [key: string]: string }[];
+}
+
+export class ChangeValueDto {
+  @IsString()
+  title: string;
 
   @IsString()
-  entityId: number;
+  description: string;
 
   @IsString()
-  boardName: string;
+  priority: string;
 
   @IsString()
-  operationType: string;
-
-  @IsString()
-  previousValues: string;
-
-  @IsString()
-  newValues: string;
+  board: string;
 }

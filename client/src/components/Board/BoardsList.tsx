@@ -17,6 +17,7 @@ export const BoardsList = () => {
               key={item.id}
               id={item.id}
               title={item.title}
+              boardName={item.title}
               tasks={item.tasks}
             />
           ))}
