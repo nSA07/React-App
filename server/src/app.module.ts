@@ -19,7 +19,7 @@ import { HistoryModule } from './history/history.module';
         username: config.get('DB_USERNAME'),
         password: config.get('DB_PASSWORD'),
         database: config.get('DB_NAME'),
-        // ssl: true,
+        ssl: true,
         synchronize: true,
         entities: [__dirname + '/**/*.entity{.js, .ts}'],
       }),
