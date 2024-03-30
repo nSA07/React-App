@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Param } from '@nestjs/common';
 import { CreateHistoryDto } from './dto/create-history.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -12,18 +12,20 @@ export class HistoryService {
   ) {}
 
   async create(createHistoryDto: CreateHistoryDto) {
-    const newHistory = {
-      entityType: createHistoryDto.entityType,
-      entityId: createHistoryDto.entityId,
-      operationType: createHistoryDto.operationType,
-      newValues: createHistoryDto.newValues,
-      previousValues: createHistoryDto.previousValues,
-      boardName: createHistoryDto.boardName,
-    };
-    return await this.historyService.save(newHistory);
+    return await this.historyService.save(createHistoryDto);
   }
 
   async findAll() {
     return await this.historyService.find();
+  }
+
+  async findAllById(@Param('id') id: string) {
+    return this.historyService.find({
+      where: [
+        {
+          taskId: id,
+        },
+      ],
+    });
   }
 }

@@ -2,6 +2,8 @@ import { Board } from '@board/entities/board.entity';
 import { IsNotEmpty, IsString } from 'class-validator';
 
 export class CreateTaskDto {
+  id: number;
+
   @IsString()
   @IsNotEmpty()
   title: string;

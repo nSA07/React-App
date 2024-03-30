@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const boardsApi = createApi({
   reducerPath: 'boardApi',
-  tagTypes: ['Boards', 'Tasks'],
+  tagTypes: ['Boards', 'Tasks', 'History', 'HistoryById'],
   baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3001/api/' }),
   endpoints: (build) => ({
     getBoards: build.query({
@@ -14,6 +14,36 @@ export const boardsApi = createApi({
               'Boards',
             ]
           : ['Boards'],
+    }),
+    getTasks: build.query({
+      query: (name) => `${name}`,
+      providesTags: (result) =>
+        result
+          ? [
+              ...result.map(({ id }) => ({ type: 'Tasks' as const, id })),
+              'Tasks',
+            ]
+          : ['Tasks'],
+    }),
+    getHistory: build.query({
+      query: (name) => `${name}`,
+      providesTags: (result) =>
+        result
+          ? [
+              ...result.map(({ id }) => ({ type: 'History' as const, id })),
+              'History',
+            ]
+          : ['History'],
+    }),
+    getAllHistoryById: build.query({
+      query: (name) => `${name}`,
+      providesTags: (result) =>
+        result
+          ? [
+              ...result.map(({ id }) => ({ type: 'HistoryById' as const, id })),
+              'HistoryById',
+            ]
+          : ['HistoryById'],
     }),
     addBoard: build.mutation({
       query: (body) => ({
@@ -38,30 +68,20 @@ export const boardsApi = createApi({
       }),
       invalidatesTags: ['Boards'],
     }),
-    getTasks: build.query({
-      query: (name) => `${name}`,
-      providesTags: (result) =>
-        result
-          ? [
-              ...result.map(({ id }) => ({ type: 'Tasks' as const, id })),
-              'Tasks',
-            ]
-          : ['Tasks'],
-    }),
     addTasks: build.mutation({
       query: (body) => ({
         url: 'tasks',
         method: 'POST',
         body,
       }),
-      invalidatesTags: ['Boards', 'Tasks'],
+      invalidatesTags: ['Boards', 'Tasks', 'History', 'HistoryById'],
     }),
     deleteTasks: build.mutation({
       query: (id) => ({
         url: `tasks/${id}`,
         method: 'DELETE',
       }),
-      invalidatesTags: ['Boards', 'Tasks'],
+      invalidatesTags: ['Boards', 'Tasks', 'History', 'HistoryById'],
     }),
     editTasks: build.mutation({
       query: (body) => ({
@@ -69,7 +89,7 @@ export const boardsApi = createApi({
         method: 'PATCH',
         body: body.new_task,
       }),
-      invalidatesTags: ['Boards','Tasks'],
+      invalidatesTags: ['Boards','Tasks', 'History', 'HistoryById'],
     }),
   }),
 });
@@ -82,5 +102,7 @@ export const {
   useAddTasksMutation,
   useGetTasksQuery,
   useDeleteTasksMutation,
-  useEditTasksMutation
+  useEditTasksMutation,
+  useGetHistoryQuery,
+  useGetAllHistoryByIdQuery
 } = boardsApi;
