@@ -18,7 +18,7 @@ export const TaskModal = ({id, boardName, historyById, title, description, prior
     function historyItem (item: IHistory) {
         item?.map(({ changes }) => {
             changes?.map(({field, prev, next, taskName, boardName, dueData, taskId}) => {                
-                data.push({title: typeFunction[field](prev, next, taskName, boardName, dueData, taskId)});
+                data.push({title: typeFunction[field](prev, next, taskName, boardName, dueData)});
             })
         });
     }

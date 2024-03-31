@@ -16,7 +16,7 @@ export const HeaderSideBar = ({history}) => {
     function historyItem (item: IHistory) {
         item?.map(({ changes }) => {
             changes?.map(({field, prev, next, taskName, boardName, dueData, taskId}) => {                
-                data.push({title: typeFunction[field](prev, next, taskName, boardName, dueData, taskId)});
+                data.push({title: typeFunction[field](prev, next, taskName, boardName, dueData)});
             })
         });
     }
