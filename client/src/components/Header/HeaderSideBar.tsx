@@ -9,13 +9,13 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 
 import { RotateCcw  } from 'lucide-react'
 import { IHistory } from "@/types/types";
-import { typeFunction } from "@/types/enums";
+import { typeFunction } from "@/components/History/History";
 
 export const HeaderSideBar = ({history}) => {     
     const data = [];
     function historyItem (item: IHistory) {
         item?.map(({ changes }) => {
-            changes?.map(({field, prev, next, taskName, boardName, dueData, taskId}) => {                
+            changes?.map(({field, prev, next, taskName, boardName, dueData}) => {                
                 data.push({title: typeFunction[field](prev, next, taskName, boardName, dueData)});
             })
         });

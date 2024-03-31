@@ -1,7 +1,7 @@
 import { Dot, Disc2  } from 'lucide-react'
 
-export enum typeFunction {
-    'added' = (prev: string, next: string, taskName: string, boardName: string, dueData: string) => 
+export const typeFunction = {
+    'added': (prev: string, next: string, _taskName: string, boardName: string, dueData: string) => 
     {
         const currentData = dueData.split(' ').slice(0, 5).join(' ');
         if(!prev) {
@@ -14,7 +14,7 @@ export enum typeFunction {
             </li>;
         } else null;
     },
-    'title' = (prev: string, next: string, taskName: string, _, dueData: string) =>
+    'title': (prev: string, next: string, _taskName: string, _boardName: string, dueData: string) =>
     {
         const currentData = dueData.split(' ').slice(0, 5).join(' ');
 
@@ -26,7 +26,7 @@ export enum typeFunction {
             <span className="pl-5 italic">{currentData}</span>
         </li>;
     },
-    'description' = (prev: string, next: string, taskName: string, _, dueData: string) => 
+    'description': (prev: string, next: string, taskName: string, _boardName: string, dueData: string) => 
     {
         const currentData = dueData.split(' ').slice(0, 5).join(' ');
         return <li className="text-slate-500 text-xs flex flex-col gap-2">
@@ -37,7 +37,7 @@ export enum typeFunction {
             <span className="pl-5 italic">{currentData}</span>
         </li>;
     },
-    'priority' = (prev: string, next: string, taskName: string, _, dueData: string) => 
+    'priority': (prev: string, next: string, taskName: string, _boardName: string, dueData: string) => 
     {
         const currentData = dueData.split(' ').slice(0, 5).join(' ');
         return <li className="text-slate-500 text-xs flex flex-col gap-2">
@@ -48,7 +48,7 @@ export enum typeFunction {
             <span className="pl-5 italic">{currentData}</span>
         </li>;
     },
-    'board' = (prev: string, next: string, taskName: string, _, dueData: string) => 
+    'board': (prev: string, next: string, taskName: string, _boardName: string, dueData: string) => 
     {
         const currentData = dueData.split(' ').slice(0, 5).join(' ');
         return <li className="text-slate-500 text-xs flex flex-col gap-2">
@@ -59,7 +59,7 @@ export enum typeFunction {
             <span className="pl-5 italic">{currentData}</span>
         </li>;
     },
-    'remove' = (prev: string, next: string, taskName: string, boardName: string, dueData: string ) => 
+    'remove': (prev: string, next: string, _taskName: string, boardName: string, dueData: string) => 
     {
         const currentData = dueData.split(' ').slice(0, 5).join(' ');
         if(!next) {

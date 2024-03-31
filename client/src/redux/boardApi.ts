@@ -1,9 +1,11 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
+const apiEndPoint = import.meta.env.VITE_PORT || 'http://localhost:3001'
+
 export const boardsApi = createApi({
   reducerPath: 'boardApi',
   tagTypes: ['Boards', 'Tasks', 'History', 'HistoryById'],
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3001/api/' }),
+  baseQuery: fetchBaseQuery({ baseUrl: `${apiEndPoint}/api` }),
   endpoints: (build) => ({
     getBoards: build.query({
       query: (name) => `${name}`,

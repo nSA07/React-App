@@ -7,7 +7,7 @@ import {
 import { Eye, Tag, Crosshair, CalendarIcon  } from "lucide-react"
 
 import { IHistory } from "@/types/types";
-import { typeFunction } from "@/types/enums";
+import { typeFunction } from "@/components/History/History";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
 import { TaskDialog } from "./TasksDialog";
 import { useState } from "react";
@@ -17,11 +17,13 @@ export const TaskModal = ({id, boardName, historyById, title, description, prior
     const data = [];
     function historyItem (item: IHistory) {
         item?.map(({ changes }) => {
-            changes?.map(({field, prev, next, taskName, boardName, dueData, taskId}) => {                
+            changes?.map(({field, prev, next, taskName, boardName, dueData}) => {                
                 data.push({title: typeFunction[field](prev, next, taskName, boardName, dueData)});
             })
         });
     }
+    console.log(historyById);
+    
     historyItem(historyById);
 
     return (
